@@ -1,7 +1,7 @@
 # Проект: Место
 
 
-[ Mesto ](https://peregudamaria.github.io/russian-travel/) 
+[ Mesto ](https://peregudamaria.github.io/mesto/) 
 
 **Технологии:**
 
