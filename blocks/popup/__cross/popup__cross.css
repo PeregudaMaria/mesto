@@ -1,0 +1,9 @@
+.popup__cross {
+  background-image: url(/sprint-4-images/Close\ Icon.svg);
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  cursor: pointer;
+}

@@ -1,0 +1,15 @@
+.popup__item {
+  margin: 30px 0 0 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  width: 358px;
+  min-height: 27px;
+  display: flex;
+  color: #000000;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+}

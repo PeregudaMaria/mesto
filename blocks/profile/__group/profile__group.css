@@ -1,0 +1,11 @@
+.profile__group {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 720px) {
+  .profile__group {
+    flex-direction: column;
+    align-items: center;
+  }
+}
