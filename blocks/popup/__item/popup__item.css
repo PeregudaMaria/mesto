@@ -13,3 +13,9 @@
   font-size: 14px;
   line-height: 1.21;
 }
+
+@media screen and (max-width: 720px) {
+  .popup__item {
+    width: 238px;
+  }
+}

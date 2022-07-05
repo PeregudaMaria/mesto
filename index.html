@@ -11,17 +11,17 @@
     <div class="page">
       <div class="popup">
         <div class="popup__container">
-          <div class="popup__cross"></div>
+          <button class="popup__cross" type="button"></button>
 
-          <form class="popup__form">
+          <form class="popup__form" name="form">
             <h2 class="popup__heading">Редактировать профиль</h2>
             <input
-              class="popup__item popup__name"
+              class="popup__item popup__item_type_name"
               type="text"
               placeholder="Имя"
             />
             <input
-              class="popup__item popup__job"
+              class="popup__item popup__item_type_job"
               type="text"
               placeholder="О себе"
             />
@@ -39,7 +39,7 @@
       </header>
 
       <main class="content">
-        <div class="profile">
+        <section class="profile">
           <div class="profile__group">
             <img
               class="profile__avatar"
@@ -47,17 +47,21 @@
               alt="аватар"
             />
             <div class="profile__info">
+            <div class="profile__info-container">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <p class="profile__status">Исследователь океана</p>
+              <button class="profile__edit-button" type="button"></button>
+              
             </div>
-            <button class="profile__edit-button"></button>
+            <p class="profile__status">Исследователь океана</p>
           </div>
-          <button class="profile__add-button">
+            
+          </div>
+          <button class="profile__add-button" type="button">
             <img src="./sprint-4-images/Vector2.png" alt="значок плюса" />
           </button>
-        </div>
+        </section>
 
-        <div class="elements">
+        <section class="elements">
           <figure class="elements__card">
             <img
               class="elements__card-photo"
@@ -66,7 +70,7 @@
             />
             <figcaption class="elements__card-group">
               <h2 class="elements__title">Карачаевск</h2>
-              <img class="elements__icon" src="./sprint-4-images/Vector3.svg" alt="значок like" />
+              <button class="elements__icon" type="button"></button>
             </figcaption>
           </figure>
 
@@ -78,7 +82,7 @@
             />
             <figcaption class="elements__card-group">
               <h2 class="elements__title">Гора Эльбрус</h2>
-              <img class="elements__icon" src="./sprint-4-images/Vector3.svg" alt="значок like" />
+              <button class="elements__icon" type="button"></button>
             </figcaption>
           </figure>
 
@@ -90,7 +94,7 @@
             />
             <figcaption class="elements__card-group">
               <h2 class="elements__title">Домбай</h2>
-              <img class="elements__icon" src="./sprint-4-images/Vector3.svg" alt="значок like"/>
+              <button class="elements__icon" type="button"></button>
             </figcaption>
           </figure>
 
@@ -102,7 +106,7 @@
             />
             <figcaption class="elements__card-group">
               <h2 class="elements__title">Гора Эльбрус</h2>
-              <img class="elements__icon" src="./sprint-4-images/Vector3.svg" alt="значок like" />
+              <button class="elements__icon" type="button"></button>
             </figcaption>
           </figure>
 
@@ -114,7 +118,7 @@
             />
             <figcaption class="elements__card-group">
               <h2 class="elements__title">Домбай</h2>
-              <img class="elements__icon" src="./sprint-4-images/Vector3.svg" alt="значок like" />
+              <button class="elements__icon" type="button"></button>
             </figcaption>
           </figure>
 
@@ -126,10 +130,10 @@
             />
             <figcaption class="elements__card-group">
               <h2 class="elements__title">Карачаево-Черкессия</h2>
-              <img class="elements__icon" src="./sprint-4-images/Vector3.svg" alt="значок like" />
+              <button class="elements__icon" type="button"></button>
             </figcaption>
           </figure>
-        </div>
+        </section>
       </main>
 
       <footer class="footer">

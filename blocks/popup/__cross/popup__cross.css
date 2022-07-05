@@ -1,4 +1,6 @@
 .popup__cross {
+  border: 0;
+  background-color: transparent;
   background-image: url(../../../sprint-4-images/Close\ Icon.svg);
   width: 32px;
   height: 32px;
@@ -6,4 +8,21 @@
   top: -40px;
   right: -40px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 720px) {
+  .popup__cross {
+    width: 20px;
+height: 20px;
+background-size: 20px 20px;
+top: -36px;
+right: 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .popup__cross {
+    width: 20px;
+    height: 20px;
+  }
 }
