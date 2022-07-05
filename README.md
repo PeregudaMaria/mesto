@@ -1,7 +1,7 @@
 # Проект: Место
 
 
-[ Mesto ](https://peregudamaria.github.io/mesto/) 
+Cервис[Mesto](https://peregudamaria.github.io/mesto/): интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки.  
 
 **Технологии:**
 
@@ -9,6 +9,7 @@
 * CSS (Flexbox, Grid Layout)
 * Методология БЭМ Nested
 * JavaScript
+* В проекте реализована адаптивная верстка
 
 **Планы по доработке проекта:**
 
