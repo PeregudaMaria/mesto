@@ -4,3 +4,9 @@
   color: #545454;
   margin-bottom: 60px;
 }
+
+@media screen and (max-width: 720px) {
+  .footer {
+    margin-bottom: 36px;
+  }
+}

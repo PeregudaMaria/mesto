@@ -6,6 +6,7 @@
   background-color: black;
   border: 2px solid #fff;
   align-items: center;
+  border-radius: 2px;
 }
 
 .profile__add-button:hover {
