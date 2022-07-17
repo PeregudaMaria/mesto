@@ -9,7 +9,7 @@
 
   <body class="body">
     <div class="page">
-      <div class="popup">
+      <div class="popup popup-profile">
         <div class="popup__container">
           <button class="popup__cross" type="button"></button>
 
@@ -30,6 +30,44 @@
         </div>
       </div>
 
+      <div class="popup popup-card">
+        <div class="popup__container popup__container-card">
+          <button class="popup__cross" type="button"></button>
+
+          <form class="popup__form" name="form2">
+            <h2 class="popup__heading">Новое место</h2>
+            <input
+              class="popup__item popup__item_type_title"
+              type="text"
+              placeholder="Название"
+            />
+            <input
+              class="popup__item popup__item_type_link"
+              type="text"
+              placeholder="Ссылка на картинку"
+            />
+            <input
+              id="save_button"
+              class="popup__button"
+              value="Создать"
+              type="button"
+            />
+          </form>
+        </div>
+      </div>
+
+      <div class="popup popup-image">
+        <div class="popup__container popup__container-image">
+          <button class="popup__cross" type="button"></button>
+          <img
+            class="popup__img"
+            src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
+            alt="Архыз"
+          />
+          <h2 class="popup__caption"></h2>
+        </div>
+      </div>
+
       <header class="header">
         <img
           class="header__logo"
@@ -47,14 +85,12 @@
               alt="аватар"
             />
             <div class="profile__info">
-            <div class="profile__info-container">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button class="profile__edit-button" type="button"></button>
-              
+              <div class="profile__info-container">
+                <h1 class="profile__name">Жак-Ив Кусто</h1>
+                <button class="profile__edit-button" type="button"></button>
+              </div>
+              <p class="profile__status">Исследователь океана</p>
             </div>
-            <p class="profile__status">Исследователь океана</p>
-          </div>
-            
           </div>
           <button class="profile__add-button" type="button">
             <img src="./sprint-4-images/Vector2.png" alt="значок плюса" />
@@ -62,77 +98,7 @@
         </section>
 
         <section class="elements">
-          <figure class="elements__card">
-            <img
-              class="elements__card-photo"
-              src="./sprint-4-images/kirill-pershin-1088404-unsplash.png"
-              alt="карачаевск"
-            />
-            <figcaption class="elements__card-group">
-              <h2 class="elements__title">Карачаевск</h2>
-              <button class="elements__icon" type="button"></button>
-            </figcaption>
-          </figure>
-
-          <figure class="elements__card">
-            <img
-              class="elements__card-photo"
-              src="./sprint-4-images/kirill-pershin-1404681-unsplash.png"
-              alt="эльбрус"
-            />
-            <figcaption class="elements__card-group">
-              <h2 class="elements__title">Гора Эльбрус</h2>
-              <button class="elements__icon" type="button"></button>
-            </figcaption>
-          </figure>
-
-          <figure class="elements__card">
-            <img
-              class="elements__card-photo"
-              src="./sprint-4-images/kirill-pershin-1556355-unsplash.png"
-              alt="домбай"
-            />
-            <figcaption class="elements__card-group">
-              <h2 class="elements__title">Домбай</h2>
-              <button class="elements__icon" type="button"></button>
-            </figcaption>
-          </figure>
-
-          <figure class="elements__card">
-            <img
-              class="elements__card-photo"
-              src="./sprint-4-images/kirill-pershin-1404681-unsplash.png"
-              alt="эльбрус"
-            />
-            <figcaption class="elements__card-group">
-              <h2 class="elements__title">Гора Эльбрус</h2>
-              <button class="elements__icon" type="button"></button>
-            </figcaption>
-          </figure>
-
-          <figure class="elements__card">
-            <img
-              class="elements__card-photo"
-              src="./sprint-4-images/kirill-pershin-1556355-unsplash.png"
-              alt="домбай"
-            />
-            <figcaption class="elements__card-group">
-              <h2 class="elements__title">Домбай</h2>
-              <button class="elements__icon" type="button"></button>
-            </figcaption>
-          </figure>
-
-          <figure class="elements__card">
-            <img
-              class="elements__card-photo"
-              src="./sprint-4-images/kirill-pershin-1088404-unsplash.png"
-              alt="карачаевск"
-            />
-            <figcaption class="elements__card-group">
-              <h2 class="elements__title">Карачаево-Черкессия</h2>
-              <button class="elements__icon" type="button"></button>
-            </figcaption>
-          </figure>
+          <ul class="elements__list"></ul>
         </section>
       </main>
 
@@ -140,6 +106,20 @@
         <p class="footer__text">&copy; 2022 Mesto Russia</p>
       </footer>
     </div>
+    <template class="element-template">
+      <li class="elements__card">
+        <button class="elements__delete-button" type="button"></button>
+        <img
+          class="elements__card-photo"
+          src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
+          alt="Архыз"
+        />
+        <figcaption class="elements__card-group">
+          <h2 class="elements__title"></h2>
+          <button class="elements__icon" type="button"></button>
+        </figcaption>
+      </li>
+    </template>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
