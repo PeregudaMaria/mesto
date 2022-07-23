@@ -11,7 +11,7 @@
     <div class="page">
       <div class="popup popup-profile">
         <div class="popup__container">
-          <button class="popup__cross" type="button"></button>
+          <button class="popup__cross" type="button" id="close_button_profile"></button>
 
           <form class="popup__form" name="form">
             <h2 class="popup__heading">Редактировать профиль</h2>
@@ -32,9 +32,9 @@
 
       <div class="popup popup-card">
         <div class="popup__container popup__container-card">
-          <button class="popup__cross" type="button"></button>
+          <button class="popup__cross" type="button" id="close_button_card"></button>
 
-          <form class="popup__form" name="form2">
+          <form class="popup__form" name="form2" id="card_form">
             <h2 class="popup__heading">Новое место</h2>
             <input
               class="popup__item popup__item_type_title"
@@ -46,11 +46,10 @@
               type="text"
               placeholder="Ссылка на картинку"
             />
-            <input
-              id="save_button"
+            <input 
               class="popup__button"
               value="Создать"
-              type="button"
+              type="submit"
             />
           </form>
         </div>
@@ -58,7 +57,7 @@
 
       <div class="popup popup-image">
         <div class="popup__container popup__container-image">
-          <button class="popup__cross" type="button"></button>
+          <button class="popup__cross" type="button" id="close_button_image"></button>
           <img
             class="popup__img"
             src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
