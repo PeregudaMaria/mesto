@@ -113,17 +113,10 @@ function addCard(evt) {
   elementsList.prepend(card);
   closePopup(cardPopup);
 }
-function findCrossInPopup(popup) {
-  return popup.querySelector(".popup__cross");
-}
-function closePopUpanddeleteListerFromCrossButtonInPopup(popup) {
-  popup.classList.remove("popup_opened");
-  findCrossInPopup(popup).removeEventListener("click", closeNameForm);
-}
 
 function closeNameForm() {
   const openedPopup = document.querySelector(".popup_opened");
-  openedPopup.classList.remove("popup_opened");
+  closePopup(openedPopup);
 }
 
 const buttons = document.getElementsByClassName("popup__cross");
