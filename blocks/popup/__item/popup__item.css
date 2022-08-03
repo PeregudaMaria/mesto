@@ -5,6 +5,7 @@
   outline: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   width: 358px;
+  width: 100%;
   min-height: 27px;
   display: flex;
   color: #000000;

@@ -1,4 +1,8 @@
 .popup__button {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+
   border: 0;
   background-color: black;
   color: white;

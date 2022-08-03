@@ -20,6 +20,7 @@ const elementTemplate = document.querySelector(".element-template").content;
 const imagePopup = document.querySelector(".popup-image");
 const imagePicture = document.querySelector(".popup__img");
 const imageCaption = document.querySelector(".popup__caption");
+const closeButtons = document.querySelectorAll('.popup__cross');
 
 const initialCards = [
   {
@@ -95,6 +96,9 @@ editButton.addEventListener("click", () => {
   openPopup(profilePopup);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+
+  spansErrorsReset(profilePopup);
+  inputsInvalidReset(profilePopup);
 });
 
 addButton.addEventListener("click", () => {
@@ -117,6 +121,9 @@ function addCard(evt) {
 function closeNameForm() {
   const openedPopup = document.querySelector(".popup_opened");
   closePopup(openedPopup);
+  spansErrorsReset(cardPopup);
+  inputsInvalidReset(cardPopup);
+  
 }
 
 const buttons = document.getElementsByClassName("popup__cross");
@@ -136,3 +143,38 @@ profileForm.addEventListener("submit", handleProfileFormSubmit);
 profileCloseButton.addEventListener("click", () => closePopup(profilePopup));
 cardCloseButton.addEventListener("click", () => closePopup(cardPopup));
 imageCloseButton.addEventListener("click", () => closePopup(imagePopup));
+
+
+
+function spansErrorsReset (popup) {
+  const spans = Array.from(popup.querySelectorAll('.popup__input-error'));
+  spans.forEach((span) => span.textContent = '');
+}
+
+function inputsInvalidReset (popup) {
+  const inputs = Array.from(popup.querySelectorAll('.popup__item'));
+  inputs.forEach((input) => input.classList.remove('popup__item_type_invalid'));
+}
+
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      closeNameForm();
+    }   
+  });
+
+
+  function closePopupOnClick(event, popup) {
+    if (event.target === popup) {
+      closeNameForm(popup);
+    }
+  }
+
+  closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => {closeNameForm(popup);});
+  popup.addEventListener('click', (event) => {closePopupOnClick(event, popup);});
+});
+
+
+  
+
