@@ -2,7 +2,6 @@
   justify-content: center;
   display: flex;
   align-items: center;
-
   border: 0;
   background-color: black;
   color: white;
@@ -12,6 +11,10 @@
   border-radius: 2px;
   font-size: 18px;
   line-height: 22px;
+}
+
+.popup__button:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 720px) {

@@ -13,3 +13,8 @@
   cursor: pointer;
   color: black;
 }
+
+.elements__delete-button:hover {
+  opacity: 0.5;
+  transition: linear;
+}

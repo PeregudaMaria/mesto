@@ -1,29 +1,9 @@
-const formTitleLink = {
-  form: '.popup__form[name="form2"]',
-  button: '.popup__button',
-  buttonDisabled: 'popup__button_disabled',
-  borderInvalid: 'popup__item_type_invalid'
-};
-
-const formNameJob ={
-  form: '.popup__form[name="form"]',
-  button: '.popup__button',
-  buttonDisabled: 'popup__button_disabled',
-  borderInvalid: 'popup__item_type_invalid'
-};
-
-function enableValidation(config) {
-  const form = document.querySelector(config.form);
-  form.addEventListener('input', (event) => handleFormInput(event, config));
-
-}
-
-function handleFormInput(event, config) {
+function handleFormInput(event) {
   const input = event.target;
   const form = event.currentTarget;
   showFieldError(input);
-  setSubmitButtonState(form, config);
-  setInputState(input, config);
+  setSubmitButtonState(form);
+  setInputState(input);
 }
 
 function showFieldError(input) {
@@ -31,35 +11,31 @@ function showFieldError(input) {
   span.textContent = input.validationMessage;
 }
 
-function setSubmitButtonState(form, config) {
-  const button = form.querySelector(config.button);
+function setSubmitButtonState(form) {
+  const button = form.querySelector(".popup__button");
   const isValid = form.checkValidity();
   if (isValid) {
-    button.removeAttribute('disabled');
-    button.classList.remove(config.buttonDisabled);
+    button.removeAttribute("disabled");
+    button.classList.remove("popup__button_disabled");
   } else {
-    button.setAttribute('disabled', true);
-    button.classList.add(config.buttonDisabled);
+    button.disabled = true;
+    button.classList.add("popup__button_disabled");
   }
 }
 
-function setInputState(input, config) {
+function setInputState(input) {
   const isValid = input.checkValidity();
   if (isValid) {
-    input.classList.remove(config.borderInvalid);
+    input.classList.remove("popup__item_type_invalid");
   } else {
-    input.classList.add(config.borderInvalid);
+    input.classList.add("popup__item_type_invalid");
   }
 }
 
-
-enableValidation(formTitleLink);
-
-enableValidation(formNameJob);
-
-
-function disableSaveButton (popup) {
-  const button = popup.querySelector('.popup__button');
-  button.setAttribute('disabled', true);
-  button.classList.add('popup__button_type_disabled');
+function enableValidation() {
+  forms = document.querySelectorAll(".popup__form");
+  forms.forEach((form) => {
+    form.addEventListener("input", (event) => handleFormInput(event));
+  });
 }
+enableValidation();
