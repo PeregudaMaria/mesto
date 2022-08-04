@@ -52,12 +52,12 @@ function createCard(cardData) {
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closePopupEsc);
+  document.addEventListener("keydown", closePopupByEsc);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupEsc);
+  document.removeEventListener("keydown", closePopupByEsc);
 }
 
 initialCards.forEach((card) => {
@@ -76,13 +76,13 @@ function addCard(evt) {
   elementsList.prepend(card);
   closePopup(cardPopup);
   disableSaveButton(cardPopup);
+  spansErrorsReset(cardPopup);
+  inputsInvalidReset(cardPopup);
 }
 
 function closeOpenedPopup() {
   const openedPopup = document.querySelector(".popup_opened");
   closePopup(openedPopup);
-  spansErrorsReset(cardPopup);
-  inputsInvalidReset(cardPopup);
 }
 
 function handleProfileFormSubmit(evt) {
@@ -102,7 +102,7 @@ function inputsInvalidReset(popup) {
   inputs.forEach((input) => input.classList.remove("popup__item_type_invalid"));
 }
 
-function closePopupEsc(evt) {
+function closePopupByEsc(evt) {
   if (evt.key === "Escape") {
     closeOpenedPopup();
   }

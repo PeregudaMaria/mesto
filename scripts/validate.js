@@ -1,9 +1,16 @@
-function handleFormInput(event) {
+const config = {
+  formSelector: ".popup__form",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__item_type_invalid",
+};
+
+function handleFormInput(event, config) {
   const input = event.target;
   const form = event.currentTarget;
   showFieldError(input);
-  setSubmitButtonState(form);
-  setInputState(input);
+  setSubmitButtonState(form, config);
+  setInputState(input, config);
 }
 
 function showFieldError(input) {
@@ -11,31 +18,31 @@ function showFieldError(input) {
   span.textContent = input.validationMessage;
 }
 
-function setSubmitButtonState(form) {
-  const button = form.querySelector(".popup__button");
+function setSubmitButtonState(form, config) {
+  const button = form.querySelector(config.submitButtonSelector);
   const isValid = form.checkValidity();
   if (isValid) {
     button.removeAttribute("disabled");
-    button.classList.remove("popup__button_disabled");
+    button.classList.remove(config.inactiveButtonClass);
   } else {
     button.disabled = true;
-    button.classList.add("popup__button_disabled");
+    button.classList.add(config.inactiveButtonClass);
   }
 }
 
-function setInputState(input) {
+function setInputState(input, config) {
   const isValid = input.checkValidity();
   if (isValid) {
-    input.classList.remove("popup__item_type_invalid");
+    input.classList.remove(config.inputErrorClass);
   } else {
-    input.classList.add("popup__item_type_invalid");
+    input.classList.add(config.inputErrorClass);
   }
 }
 
-function enableValidation() {
-  forms = document.querySelectorAll(".popup__form");
+function enableValidation(config) {
+  const forms = document.querySelectorAll(config.formSelector);
   forms.forEach((form) => {
-    form.addEventListener("input", (event) => handleFormInput(event));
+    form.addEventListener("input", (event) => handleFormInput(event, config));
   });
 }
-enableValidation();
+enableValidation(config);
