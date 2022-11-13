@@ -1,48 +1,44 @@
-const config = {
-  formSelector: ".popup__form",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__item_type_invalid",
-};
+export default class FormValidator {
+  constructor(config, form) {
+    this._config = config;
+    this._form = form;
+  }
+  _handleFormInput(event) {
+    const input = event.target;
+    this._showFieldError(input);
+    this._setSubmitButtonState();
+    this._setInputState(input);
+  }
 
-function handleFormInput(event, config) {
-  const input = event.target;
-  const form = event.currentTarget;
-  showFieldError(input);
-  setSubmitButtonState(form, config);
-  setInputState(input, config);
-}
+  enableValidation() {
+    this._form.addEventListener("input", (event) =>
+      this._handleFormInput(event)
+    );
+  }
 
-function showFieldError(input) {
-  const span = input.nextElementSibling;
-  span.textContent = input.validationMessage;
-}
+  _showFieldError(input) {
+    const span = input.nextElementSibling;
+    span.textContent = input.validationMessage;
+  }
 
-function setSubmitButtonState(form, config) {
-  const button = form.querySelector(config.submitButtonSelector);
-  const isValid = form.checkValidity();
-  if (isValid) {
-    button.removeAttribute("disabled");
-    button.classList.remove(config.inactiveButtonClass);
-  } else {
-    button.disabled = true;
-    button.classList.add(config.inactiveButtonClass);
+  _setSubmitButtonState() {
+    const button = this._form.querySelector(this._config.submitButtonSelector);
+    const isValid = this._form.checkValidity();
+    if (isValid) {
+      button.removeAttribute("disabled");
+      button.classList.remove(this._config.inactiveButtonClass);
+    } else {
+      button.disabled = true;
+      button.classList.add(this._config.inactiveButtonClass);
+    }
+  }
+
+  _setInputState(input) {
+    const isValid = input.checkValidity();
+    if (isValid) {
+      input.classList.remove(this._config.inputErrorClass);
+    } else {
+      input.classList.add(this._config.inputErrorClass);
+    }
   }
 }
-
-function setInputState(input, config) {
-  const isValid = input.checkValidity();
-  if (isValid) {
-    input.classList.remove(config.inputErrorClass);
-  } else {
-    input.classList.add(config.inputErrorClass);
-  }
-}
-
-function enableValidation(config) {
-  const forms = document.querySelectorAll(config.formSelector);
-  forms.forEach((form) => {
-    form.addEventListener("input", (event) => handleFormInput(event, config));
-  });
-}
-enableValidation(config);
