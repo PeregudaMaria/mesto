@@ -1,6 +1,4 @@
-const imagePopup = document.querySelector(".popup-image");
-const imagePicture = document.querySelector(".popup__img");
-const imageCaption = document.querySelector(".popup__caption");
+import { imagePopup, imagePicture, imageCaption } from "./constants.js";
 
 export default class Card {
   constructor(cardData, cardSelector, handleCardClick) {
@@ -25,6 +23,7 @@ export default class Card {
   }
 
   _openPopup() {
+
     imagePicture.src = this._cardData.link;
     imagePicture.alt = this._cardData.name;
     imageCaption.textContent = this._cardData.name;

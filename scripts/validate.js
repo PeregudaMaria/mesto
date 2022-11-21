@@ -41,4 +41,27 @@ export default class FormValidator {
       input.classList.add(this._config.inputErrorClass);
     }
   }
+
+  disableSaveButton() {
+    const button = this._form.querySelector(".popup__button");
+    button.disabled = true;
+    button.classList.add("popup__button_disabled");
+  }
+
+  _resetSpansErrors(){
+    const spans = Array.from(this._form.querySelectorAll(".popup__input-error"));
+    spans.forEach((span) => (span.textContent = ""));
+  }
+
+  _resetInputsInvalid() {
+    const inputs = Array.from(this._form.querySelectorAll(".popup__item"));
+    inputs.forEach((input) =>
+      input.classList.remove("popup__item_type_invalid")
+    );
+  }
+
+  clearValidationErrors(){
+    this._resetSpansErrors()
+    this._resetInputsInvalid()
+  }
 }
