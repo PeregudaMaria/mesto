@@ -2,7 +2,11 @@ export default class FormValidator {
   constructor(config, form) {
     this._config = config;
     this._form = form;
+    this._button =  form.querySelector(config.submitButtonSelector);
+    this._errorSpans = Array.from(this._form.querySelectorAll(config.inputError));
+    this._inputs = Array.from(this._form.querySelectorAll(config.inputPopup));
   }
+
   _handleFormInput(event) {
     const input = event.target;
     this._showFieldError(input);
@@ -22,14 +26,15 @@ export default class FormValidator {
   }
 
   _setSubmitButtonState() {
-    const button = this._form.querySelector(this._config.submitButtonSelector);
+    console.log(this._form)
     const isValid = this._form.checkValidity();
+    console.log(isValid)
     if (isValid) {
-      button.removeAttribute("disabled");
-      button.classList.remove(this._config.inactiveButtonClass);
+      this._button.removeAttribute("disabled");
+      this._button.classList.remove(this._config.inactiveButtonClass);
     } else {
-      button.disabled = true;
-      button.classList.add(this._config.inactiveButtonClass);
+      this._button.disabled = true;
+      this._button.classList.add(this._config.inactiveButtonClass);
     }
   }
 
@@ -43,20 +48,17 @@ export default class FormValidator {
   }
 
   disableSaveButton() {
-    const button = this._form.querySelector(".popup__button");
-    button.disabled = true;
-    button.classList.add("popup__button_disabled");
+    this._button.disabled = true;
+    this._button.classList.add(this._config.inactiveButtonClass);
   }
 
   _resetSpansErrors(){
-    const spans = Array.from(this._form.querySelectorAll(".popup__input-error"));
-    spans.forEach((span) => (span.textContent = ""));
+    this._errorSpans.forEach((span) => (span.textContent = ""));
   }
 
   _resetInputsInvalid() {
-    const inputs = Array.from(this._form.querySelectorAll(".popup__item"));
-    inputs.forEach((input) =>
-      input.classList.remove("popup__item_type_invalid")
+    this._inputs.forEach((input) =>
+      input.classList.remove(this._config.inputErrorClass)
     );
   }
 

@@ -3,14 +3,20 @@ export const editButton = document.querySelector(".profile__edit-button");
 export const addButton = document.querySelector(".profile__add-button");
 export const imageCloseButton = document.querySelector("#close_button_image");
 export const cardCloseButton = document.querySelector("#close_button_card");
-export const profileCloseButton = document.querySelector("#close_button_profile");
+export const profileCloseButton = document.querySelector(
+  "#close_button_profile"
+);
 export const profileName = document.querySelector(".profile__name");
 export const profileJob = document.querySelector(".profile__status");
-export const profileForm = document.querySelector(".popup__container");
+export const profileForm = document.querySelector(
+  ".popup__container .popup__form"
+);
 export const nameInput = document.querySelector(".popup__item_type_name");
 export const jobInput = document.querySelector(".popup__item_type_job");
 export const cardPopup = document.querySelector(".popup-card");
-export const cardForm = cardPopup.querySelector(".popup__container-card");
+export const cardForm = cardPopup.querySelector(
+  ".popup__container-card .popup__form"
+);
 export const titleInput = cardForm.querySelector(".popup__item_type_title");
 export const linkInput = cardForm.querySelector(".popup__item_type_link");
 export const elementsList = document.querySelector(".elements__list");
@@ -25,6 +31,8 @@ export const config = {
   submitButtonSelector: ".popup__button",
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__item_type_invalid",
+  inputPopup: ".popup__item",
+  inputError: "popup__input-error",
 };
 
 export const initialCards = [

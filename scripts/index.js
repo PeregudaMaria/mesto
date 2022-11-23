@@ -39,6 +39,11 @@ initialCards.forEach((cardData) => {
 });
 
 
+const cardValidator = new FormValidator(config, cardForm) 
+const profileValidator = new FormValidator(config, profileForm)
+cardValidator.enableValidation()
+profileValidator.enableValidation()
+
 function addCard(evt) {
   evt.preventDefault();
   const cardData = {
@@ -48,9 +53,8 @@ function addCard(evt) {
   createCardAndAddToElemntsList(cardData, cardTemplate);
   closePopup(cardPopup);
   evt.target.reset();
-  const validator = new FormValidator(config, cardPopup)
-  validator.disableSaveButton();
-  validator.clearValidationErrors();
+  cardValidator.disableSaveButton();
+  cardValidator.clearValidationErrors();
 }
 
 function closeOpenedPopup() {
@@ -95,19 +99,12 @@ for (let i = 0; i < buttons.length; i++) {
 function openProfilePopup() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  new FormValidator(config, profilePopup).clearValidationErrors(profilePopup);
+  profileValidator.clearValidationErrors(profilePopup);
   openPopup(profilePopup);
 }
 
 addButton.addEventListener("click", () => {
   openPopup(cardPopup);
-});
-
-const forms = document.querySelectorAll(config.formSelector);
-
-forms.forEach((form) => {
-  const formValidator = new FormValidator(config, form);
-  formValidator.enableValidation();
 });
 
 document.querySelector("#card_form").addEventListener("submit", addCard);

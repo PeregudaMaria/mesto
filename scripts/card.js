@@ -12,6 +12,7 @@ export default class Card {
       ".elements__card-photo"
     );
     this._handleCardClick = handleCardClick;
+    this._card = this._cardTemplate.querySelector(".elements__card")
   }
 
   _like() {
@@ -19,7 +20,7 @@ export default class Card {
   }
 
   _delete() {
-    this._deleteButton.closest(".elements__card").remove();
+    this._card.remove()
   }
 
   _openPopup() {
