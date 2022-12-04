@@ -24,7 +24,6 @@ export default class Card {
   }
 
   _openPopup() {
-
     imagePicture.src = this._cardData.link;
     imagePicture.alt = this._cardData.name;
     imageCaption.textContent = this._cardData.name;
@@ -35,6 +34,7 @@ export default class Card {
     this._likeButton.addEventListener("click", () => this._like());
     this._deleteButton.addEventListener("click", () => this._delete());
     this._imageElement.addEventListener("click", () => this._openPopup());
+    
   }
 
   render() {

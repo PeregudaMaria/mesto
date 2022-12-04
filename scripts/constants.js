@@ -6,13 +6,24 @@ export const cardCloseButton = document.querySelector("#close_button_card");
 export const profileCloseButton = document.querySelector(
   "#close_button_profile"
 );
+
+export const profilePopupSelector = ".popup-profile";
+export const imagePopupSelector = ".popup-image";
+export const cardPopupSelector = ".popup-card";
+export const profileNameSelector = ".profile__name";
+export const profileBioSelector = ".profile__bio";
+export const openedPopupSelector = "popup_opened";
+export const elementsListSelector = ".elements__list";
+
+
+
 export const profileName = document.querySelector(".profile__name");
-export const profileJob = document.querySelector(".profile__status");
+export const profileBio = document.querySelector(".profile__bio");
 export const profileForm = document.querySelector(
   ".popup__container .popup__form"
 );
 export const nameInput = document.querySelector(".popup__item_type_name");
-export const jobInput = document.querySelector(".popup__item_type_job");
+export const bioInput = document.querySelector(".popup__item_type_bio");
 export const cardPopup = document.querySelector(".popup-card");
 export const cardForm = cardPopup.querySelector(
   ".popup__container-card .popup__form"

@@ -26,9 +26,7 @@ export default class FormValidator {
   }
 
   _setSubmitButtonState() {
-    console.log(this._form)
     const isValid = this._form.checkValidity();
-    console.log(isValid)
     if (isValid) {
       this._button.removeAttribute("disabled");
       this._button.classList.remove(this._config.inactiveButtonClass);
