@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
 
   <body class="body">
@@ -104,7 +103,7 @@
       <header class="header">
         <img
           class="header__logo"
-          src="./sprint-4-images/logo.svg"
+          src="<%=require('./images/logo.svg')%>"
           alt="логотип mesto russia"
         />
       </header>
@@ -114,7 +113,7 @@
           <div class="profile__group">
             <img
               class="profile__avatar"
-              src="./sprint-4-images/image.jpg"
+              src="<%=require('./images/image.jpg')%>"
               alt="аватар"
             />
             <div class="profile__info">
@@ -126,7 +125,7 @@
             </div>
           </div>
           <button class="profile__add-button" type="button">
-            <img src="./sprint-4-images/Vector2.png" alt="значок плюса" />
+            <img src="<%=require('./images/Vector2.png')%>" alt="значок плюса" />
           </button>
         </section>
 
@@ -155,6 +154,5 @@
         </figcaption>
       </li>
     </template>
-    <script src="./scripts/index.js" type="module"></script>
   </body>
 </html>

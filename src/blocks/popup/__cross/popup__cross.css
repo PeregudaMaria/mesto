@@ -1,7 +1,7 @@
 .popup__cross {
   border: 0;
   background-color: transparent;
-  background-image: url(../../../sprint-4-images/Close\ Icon.svg);
+  background-image: url("../../../images/Close Icon.svg");
   width: 32px;
   height: 32px;
   position: absolute;
