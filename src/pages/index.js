@@ -1,11 +1,11 @@
-import Card from "./card.js";
-import FormValidator from "./validate.js";
-import Section from "./section.js";
-import PopupWithImage from "./PopupWithImage.js";
-import PopupWithForm from "./PopupWithForm.js";
-import UserInfo from "./UserInfo.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/Validate.js";
+import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 
-import '../pages/index.css';
+import "../pages/index.css";
 
 import {
   editButton,
@@ -26,17 +26,22 @@ import {
   cardTemplate,
   config,
   initialCards,
-} from "./constants.js";
+} from "../utils/constants.js";
 
-function handleCardClick(popup) {
-  popup.classList.add(openedPopupSelector);
+function createCard(cardData) {
+  const card = new Card(cardData, cardTemplate, handleCardClick);
+  section.addItem(card.render());
 }
+
+function handleCardClick(cardData) {
+  popupImage.open(cardData.name, cardData.link);
+}
+
 const section = new Section(
   {
     items: initialCards,
     renderer: (cardData) => {
-      const card = new Card(cardData, cardTemplate, handleCardClick);
-      section.addItem(card.render());
+      createCard(cardData)
     },
   },
   elementsListSelector
@@ -49,14 +54,13 @@ const profileValidator = new FormValidator(config, profileForm);
 cardValidator.enableValidation();
 profileValidator.enableValidation();
 
-function addCard(evt) {
+function addCard(evt, inputValues) {
   evt.preventDefault();
   const cardData = {
-    name: titleInput.value,
-    link: linkInput.value,
+    name: inputValues.imgName,
+    link: inputValues.imgSrc,
   };
-  const card = new Card(cardData, cardTemplate, handleCardClick);
-  section.addItem(card.render());
+  createCard(cardData)
   evt.target.reset();
   cardValidator.disableSaveButton();
   cardValidator.clearValidationErrors();
@@ -64,9 +68,9 @@ function addCard(evt) {
 
 const user = new UserInfo(profileNameSelector, profileBioSelector);
 
-function handleProfileFormSubmit(evt) {
+function handleProfileFormSubmit(evt, inputValues) {
   evt.preventDefault();
-  user.setUserInfo(nameInput.value, bioInput.value);
+  user.setUserInfo(inputValues.profileName, inputValues.profileBio);
 }
 
 const popupCard = new PopupWithForm(cardPopupSelector, addCard);
@@ -80,6 +84,10 @@ const popupProfile = new PopupWithForm(
   handleProfileFormSubmit
 );
 popupProfile.setEventListeners();
+popupProfile.fillInputValues({
+  profileName: document.querySelector(profileNameSelector).textContent,
+  profileBio: document.querySelector(profileBioSelector).textContent,
+})
 editButton.addEventListener("click", () => {
   popupProfile.open();
 });

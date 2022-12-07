@@ -1,5 +1,3 @@
-import { imagePopup, imagePicture, imageCaption } from "./constants.js";
-
 export default class Card {
   constructor(cardData, cardSelector, handleCardClick) {
     this._cardData = cardData;
@@ -13,6 +11,7 @@ export default class Card {
     );
     this._handleCardClick = handleCardClick;
     this._card = this._cardTemplate.querySelector(".elements__card")
+    
   }
 
   _like() {
@@ -23,18 +22,10 @@ export default class Card {
     this._card.remove()
   }
 
-  _openPopup() {
-    imagePicture.src = this._cardData.link;
-    imagePicture.alt = this._cardData.name;
-    imageCaption.textContent = this._cardData.name;
-    this._handleCardClick(imagePopup);
-  }
-
   _setupEventListeners() {
     this._likeButton.addEventListener("click", () => this._like());
     this._deleteButton.addEventListener("click", () => this._delete());
-    this._imageElement.addEventListener("click", () => this._openPopup());
-    
+    this._imageElement.addEventListener("click", () => this._handleCardClick(this._cardData)); 
   }
 
   render() {

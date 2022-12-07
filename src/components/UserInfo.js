@@ -16,4 +16,5 @@ export default class UserInfo {
               name: this._name.textContent,
               bio: this._bio.textContent,}
           }
+
 }
