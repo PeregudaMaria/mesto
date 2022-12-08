@@ -31,8 +31,8 @@ export default class PopupWithForm extends Popup {
 
   fillInputValues(inputValues){
     this._inputList.forEach((input) => {
-      let name = input.name
-      let newValue = inputValues[name]
+      const name = input.name
+      const newValue = inputValues[name]
       input.value = newValue
 
     })

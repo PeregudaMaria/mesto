@@ -30,7 +30,7 @@ import {
 
 function createCard(cardData) {
   const card = new Card(cardData, cardTemplate, handleCardClick);
-  section.addItem(card.render());
+  return card.render();
 }
 
 function handleCardClick(cardData) {
@@ -41,7 +41,7 @@ const section = new Section(
   {
     items: initialCards,
     renderer: (cardData) => {
-      createCard(cardData)
+      section.addItem(createCard(cardData));
     },
   },
   elementsListSelector
@@ -60,7 +60,7 @@ function addCard(evt, inputValues) {
     name: inputValues.imgName,
     link: inputValues.imgSrc,
   };
-  createCard(cardData)
+  section.addItem(createCard(cardData));
   evt.target.reset();
   cardValidator.disableSaveButton();
   cardValidator.clearValidationErrors();
@@ -84,11 +84,12 @@ const popupProfile = new PopupWithForm(
   handleProfileFormSubmit
 );
 popupProfile.setEventListeners();
-popupProfile.fillInputValues({
-  profileName: document.querySelector(profileNameSelector).textContent,
-  profileBio: document.querySelector(profileBioSelector).textContent,
-})
+
 editButton.addEventListener("click", () => {
+  popupProfile.fillInputValues({
+    profileName: document.querySelector(profileNameSelector).textContent,
+    profileBio: document.querySelector(profileBioSelector).textContent,
+  });
   popupProfile.open();
 });
 
