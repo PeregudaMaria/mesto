@@ -1,0 +1,8 @@
+.profile__container {
+  position: relative;
+  border-radius: 50%;
+  width: 120px;
+  background-image: url(../../../images/VectorForProfile.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}

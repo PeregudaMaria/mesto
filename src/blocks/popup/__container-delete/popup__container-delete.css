@@ -1,0 +1,12 @@
+.popup__container-delete {
+  display: flex;
+  position: relative;
+  background-color: #fff;
+  color: black;
+  border-radius: 10px;
+  padding: 0px;
+  padding-right: 36px;
+  padding-left: 36px;
+  height: 181px;
+  font-size: 24px;
+}
