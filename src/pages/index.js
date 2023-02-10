@@ -1,5 +1,5 @@
 import Card from "../components/Card.js";
-import FormValidator from "../components/Validate.js";
+import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
@@ -39,35 +39,44 @@ const configApi = {
   headers: {
     authorization: "b62f355c-3b4c-496c-8d2e-ef61ddac11ed",
     "Content-Type": "application/json",
-  }
+  },
 };
 
 const api = new Api(configApi);
 
-
-
-
-api.getUserInfo().then((data) => {
-  user.setUserInfo(data.name, data.about, data.avatar, data._id);
-}).catch((err) => {
-  console.log(err); 
-});
+api
+  .getUserInfo()
+  .then((data) => {
+    user.setUserInfo(data.name, data.about, data.avatar, data._id);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const user = new UserInfo(
   profileNameSelector,
   profileBioSelector,
   avatarSelector
 );
-
-function handleDelete(id) {
-  api.deleteCard(id).then(() => location.reload())
-}  
-
 const popupForDelete = new PopupWithSubmit(cardDeleteSelector, handleDelete);
-popupForDelete.setEventListeners()
+popupForDelete.setEventListeners();
+
+popupForDelete.setupSubmitListener((card) => {
+  api
+    .deleteCard(card._id)
+    .then(() => {
+      popupForDelete.close();
+    })
+    .then(() => card._delete())
+    .catch((err) => console.log(err));
+});
+
+function handleDelete() {
+  popupForDelete.open();
+  popupForDelete.setupCard(this);
+}
 
 function createCard(cardData) {
-
   const card = new Card(
     cardData,
     cardTemplate,
@@ -85,13 +94,16 @@ function handleCardClick(cardData) {
   popupImage.open(cardData.name, cardData.link);
 }
 
-api.getInitialCards().then((data) => {
-  data.forEach((cardData) => {
-    section.addItem(createCard(cardData));
+api
+  .getInitialCards()
+  .then((data) => {
+    data.forEach((cardData) => {
+      section.addItem(createCard(cardData));
+    });
   })
-}).catch((err) => {
-  console.log(err); 
-});
+  .catch((err) => {
+    console.log(err);
+  });
 
 const section = new Section(
   {
@@ -112,13 +124,16 @@ profileValidator.enableValidation();
 
 function addCard(evt, inputValues) {
   evt.preventDefault();
-  cardSubmit.textContent = loadingString 
-  api.addCard(inputValues.imgName, inputValues.imgSrc).then((res) => {
-    section.addItem(createCard(res));
-    cardSubmit.textContent = 'Сохранить'
-  }).catch((err) => {
-    console.log(err); 
-  });;
+  cardSubmit.textContent = loadingString;
+  api
+    .addCard(inputValues.imgName, inputValues.imgSrc)
+    .then((res) => {
+      section.addItem(createCard(res));
+      cardSubmit.textContent = "Сохранить";
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   evt.target.reset();
   cardValidator.disableSaveButton();
@@ -127,16 +142,16 @@ function addCard(evt, inputValues) {
 
 function handleProfileFormSubmit(evt, inputValues) {
   evt.preventDefault();
-  profileSubmit.textContent = loadingString 
+  profileSubmit.textContent = loadingString;
   api
     .changeUserInfo(inputValues.profileName, inputValues.profileBio)
     .then((data) => {
       user.setUserInfo(data.name, data.about);
-      profileSubmit.textContent = 'Сохранить'
-
-    }).catch((err) => {
-      console.log(err); 
-    });;
+      profileSubmit.textContent = "Сохранить";
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   user.setUserInfo(inputValues.profileName, inputValues.profileBio);
 }
 
@@ -163,28 +178,24 @@ editButton.addEventListener("click", () => {
 const popupImage = new PopupWithImage(imagePopupSelector);
 popupImage.setEventListeners();
 
-
-
 const popupAvatar = new PopupWithForm(avatarPopupSelector, handleAvatarSubmit);
 popupAvatar.setEventListeners();
-const popupAvataralidator = new FormValidator(config,avatarPopup);
-popupAvataralidator.enableValidation()
-avatarButton.addEventListener("click", () => { 
+const popupAvataralidator = new FormValidator(config, avatarPopup);
+popupAvataralidator.enableValidation();
+avatarButton.addEventListener("click", () => {
   popupAvatar.open();
 });
 
 function handleAvatarSubmit(evt, inputValues) {
   evt.preventDefault();
-  avatarSubmit.textContent = loadingString  
+  avatarSubmit.textContent = loadingString;
   api
     .changeAvatar(inputValues.imgSrc)
     .then((data) => {
       user.setUserInfo(data.name, data.about, data.avatar, data._id);
-      avatarSubmit.textContent = 'Сохранить'
-    }).catch((err) => {
-      console.log(err); 
-    });;
-    
-  
+      avatarSubmit.textContent = "Сохранить";
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
-

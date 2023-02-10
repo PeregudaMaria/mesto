@@ -2,8 +2,10 @@ export default class FormValidator {
   constructor(config, form) {
     this._config = config;
     this._form = form;
-    this._button =  form.querySelector(config.submitButtonSelector);
-    this._errorSpans = Array.from(this._form.querySelectorAll(config.inputError));
+    this._button = form.querySelector(config.submitButtonSelector);
+    this._errorSpans = Array.from(
+      this._form.querySelectorAll(config.inputError)
+    );
     this._inputs = Array.from(this._form.querySelectorAll(config.inputPopup));
   }
 
@@ -50,7 +52,7 @@ export default class FormValidator {
     this._button.classList.add(this._config.inactiveButtonClass);
   }
 
-  _resetSpansErrors(){
+  _resetSpansErrors() {
     this._errorSpans.forEach((span) => (span.textContent = ""));
   }
 
@@ -60,8 +62,8 @@ export default class FormValidator {
     );
   }
 
-  clearValidationErrors(){
-    this._resetSpansErrors()
-    this._resetInputsInvalid()
+  clearValidationErrors() {
+    this._resetSpansErrors();
+    this._resetInputsInvalid();
   }
 }

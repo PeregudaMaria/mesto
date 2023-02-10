@@ -40,7 +40,9 @@
               name="profileBio"
             />
             <span class="popup__input-error"></span>
-            <button class="popup__button popup__button_profile" type="submit">Сохранить</button>
+            <button class="popup__button popup__button_profile" type="submit">
+              Сохранить
+            </button>
           </form>
         </div>
       </div>
@@ -105,13 +107,15 @@
       <div class="popup popup-delete">
         <div class="popup__container popup__container-delete">
           <button
-          class="popup__cross"
-          type="button"
-          id="close_button_image"
-        ></button>
+            class="popup__cross"
+            type="button"
+            id="close_button_delete"
+          ></button>
           <h3 class="popup__title">Вы уверены?</h3>
-          <button class="popup__button popup__button_delete" type="button">Да</button>
-       </div>
+          <button class="popup__button popup__button_delete" type="button">
+            Да
+          </button>
+        </div>
       </div>
 
       <div class="popup popup-avatar">
@@ -119,7 +123,7 @@
           <button
             class="popup__cross"
             type="button"
-            id="close_button_card"
+            id="close_button_avatar"
           ></button>
 
           <form class="popup__form" name="form3" id="avatar_form" novalidate>
@@ -156,11 +160,8 @@
         <section class="profile">
           <div class="profile__group">
             <div class="profile__container">
-            <img
-              class="profile__avatar"
-              alt="аватар"
-            />
-          </div>
+              <img class="profile__avatar" alt="аватар" />
+            </div>
             <div class="profile__info">
               <div class="profile__info-container">
                 <h1 class="profile__name"></h1>
@@ -170,7 +171,10 @@
             </div>
           </div>
           <button class="profile__add-button" type="button">
-            <img src="<%=require('./images/Vector2.png')%>" alt="значок плюса" />
+            <img
+              src="<%=require('./images/Vector2.png')%>"
+              alt="значок плюса"
+            />
           </button>
         </section>
 
@@ -197,8 +201,8 @@
           <h2 class="elements__title"></h2>
           <div class="elements__card-number">
             <a class="elements__number">0</a>
-          <button class="elements__icon" type="button"></button>
-        </div>
+            <button class="elements__icon" type="button"></button>
+          </div>
         </figcaption>
       </li>
     </template>

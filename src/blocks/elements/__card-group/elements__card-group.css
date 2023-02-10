@@ -1,6 +1,7 @@
 .elements__card-group {
   display: flex;
   flex-direction: row;
+  max-width: 220px;
   justify-content: space-between;
   align-items: center;
   text-overflow: ellipsis;

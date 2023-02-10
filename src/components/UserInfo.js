@@ -15,8 +15,7 @@ export default class UserInfo {
     if (avatar != undefined) {
       this._avatarSelector.src = avatar;
     }
-    this._id = id
-
+    this._id = id;
   }
 
   getUserInfo() {

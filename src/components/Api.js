@@ -54,23 +54,17 @@ export default class Api {
   }
 
   setLike(id) {
-    return fetch(
-      `${this._url}/cards/${id}/likes`,
-      {
-        method: "PUT",
-        headers: this._headers,
-      }
-    ).then(this._getResponse);
+    return fetch(`${this._url}/cards/${id}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then(this._getResponse);
   }
 
   deleteLike(id) {
-    return fetch(
-      `${this._url}/cards/${id}/likes`,
-      {
-        method: "DELETE",
-        headers: this._headers,
-      }
-    ).then(this._getResponse);
+    return fetch(`${this._url}/cards/${id}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this._getResponse);
   }
 
   changeAvatar(link) {
