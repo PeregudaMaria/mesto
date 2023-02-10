@@ -24,7 +24,7 @@ import {
   imagePopupSelector,
   cardPopupSelector,
   avatarPopupSelector,
-  avatarPopup,
+  avatarForm,
   elementsListSelector,
   profileForm,
   cardForm,
@@ -32,6 +32,7 @@ import {
   config,
   initialCards,
   cardDeleteSelector,
+  saveString,
 } from "../utils/constants.js";
 
 const configApi = {
@@ -43,11 +44,25 @@ const configApi = {
 };
 
 const api = new Api(configApi);
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: (cardData) => {
+      section.addItem(createCard(cardData));
+    },
+  },
+  elementsListSelector
+);
 
-api
-  .getUserInfo()
-  .then((data) => {
-    user.setUserInfo(data.name, data.about, data.avatar, data._id);
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    user.setUserInfo(
+      userData.name,
+      userData.about,
+      userData.avatar,
+      userData._id
+    );
+    section.renderItems(cards.reverse());
   })
   .catch((err) => {
     console.log(err);
@@ -58,22 +73,26 @@ const user = new UserInfo(
   profileBioSelector,
   avatarSelector
 );
-const popupForDelete = new PopupWithSubmit(cardDeleteSelector, handleDelete);
+
+const popupForDelete = new PopupWithSubmit(
+  cardDeleteSelector,
+  handleDeleteSubmit
+);
 popupForDelete.setEventListeners();
 
-popupForDelete.setupSubmitListener((card) => {
+function handleDeleteSubmit(card) {
   api
     .deleteCard(card._id)
     .then(() => {
       popupForDelete.close();
+      card._delete();
     })
-    .then(() => card._delete())
     .catch((err) => console.log(err));
-});
+}
 
-function handleDelete() {
+function handleDelete(card) {
   popupForDelete.open();
-  popupForDelete.setupCard(this);
+  popupForDelete.setupCard(card);
 }
 
 function createCard(cardData) {
@@ -94,29 +113,6 @@ function handleCardClick(cardData) {
   popupImage.open(cardData.name, cardData.link);
 }
 
-api
-  .getInitialCards()
-  .then((data) => {
-    data.forEach((cardData) => {
-      section.addItem(createCard(cardData));
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      section.addItem(createCard(cardData));
-    },
-  },
-  elementsListSelector
-);
-
-section.renderItems();
-
 const cardValidator = new FormValidator(config, cardForm);
 const profileValidator = new FormValidator(config, profileForm);
 cardValidator.enableValidation();
@@ -129,15 +125,14 @@ function addCard(evt, inputValues) {
     .addCard(inputValues.imgName, inputValues.imgSrc)
     .then((res) => {
       section.addItem(createCard(res));
-      cardSubmit.textContent = "Сохранить";
+      this.close();
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      cardSubmit.textContent = saveString;
     });
-
-  evt.target.reset();
-  cardValidator.disableSaveButton();
-  cardValidator.clearValidationErrors();
 }
 
 function handleProfileFormSubmit(evt, inputValues) {
@@ -147,18 +142,22 @@ function handleProfileFormSubmit(evt, inputValues) {
     .changeUserInfo(inputValues.profileName, inputValues.profileBio)
     .then((data) => {
       user.setUserInfo(data.name, data.about);
-      profileSubmit.textContent = "Сохранить";
+      this.close();
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      profileSubmit.textContent = saveString;
     });
-  user.setUserInfo(inputValues.profileName, inputValues.profileBio);
 }
 
 const popupCard = new PopupWithForm(cardPopupSelector, addCard);
 popupCard.setEventListeners();
 addButton.addEventListener("click", () => {
   popupCard.open();
+  cardValidator.disableSaveButton();
+  cardValidator.clearValidationErrors();
 });
 
 const popupProfile = new PopupWithForm(
@@ -168,11 +167,16 @@ const popupProfile = new PopupWithForm(
 popupProfile.setEventListeners();
 
 editButton.addEventListener("click", () => {
+  const { bio, name } = user.getUserInfo();
   popupProfile.fillInputValues({
-    profileName: document.querySelector(profileNameSelector).textContent,
-    profileBio: document.querySelector(profileBioSelector).textContent,
+    profileName: name,
+    profileBio: bio,
   });
   popupProfile.open();
+  console.log('disable')
+  profileValidator.clearValidationErrors();
+  profileValidator.disableSaveButton();
+  
 });
 
 const popupImage = new PopupWithImage(imagePopupSelector);
@@ -180,10 +184,15 @@ popupImage.setEventListeners();
 
 const popupAvatar = new PopupWithForm(avatarPopupSelector, handleAvatarSubmit);
 popupAvatar.setEventListeners();
-const popupAvataralidator = new FormValidator(config, avatarPopup);
-popupAvataralidator.enableValidation();
+
+const popupAvatarValidator = new FormValidator(config, avatarForm);
+popupAvatarValidator.enableValidation();
 avatarButton.addEventListener("click", () => {
   popupAvatar.open();
+  console.log('disable')
+  popupAvatarValidator.disableSaveButton();
+  popupAvatarValidator.clearValidationErrors();
+  
 });
 
 function handleAvatarSubmit(evt, inputValues) {
@@ -193,9 +202,12 @@ function handleAvatarSubmit(evt, inputValues) {
     .changeAvatar(inputValues.imgSrc)
     .then((data) => {
       user.setUserInfo(data.name, data.about, data.avatar, data._id);
-      avatarSubmit.textContent = "Сохранить";
+      this.close();
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      avatarSubmit.textContent = saveString;
     });
 }

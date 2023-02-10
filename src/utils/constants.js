@@ -30,11 +30,12 @@ export const imagePicture = document.querySelector(".popup__img");
 export const imageCaption = document.querySelector(".popup__caption");
 
 export const avatarButton = document.querySelector(".profile__container");
-export const avatarPopup = document.querySelector("#avatar_form");
+export const avatarForm = document.querySelector("#avatar_form");
 export const avatarSubmit = document.querySelector(".popup__button_avatar");
 export const profileSubmit = document.querySelector(".popup__button_profile");
 export const cardSubmit = document.querySelector(".popup__button_card");
 export const loadingString = "Сохранение...";
+export const saveString = "Сохранить";
 
 export const config = {
   formSelector: ".popup__form",
@@ -42,7 +43,7 @@ export const config = {
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__item_type_invalid",
   inputPopup: ".popup__item",
-  inputError: "popup__input-error",
+  inputError: ".popup__input-error",
 };
 
 export const initialCards = [];

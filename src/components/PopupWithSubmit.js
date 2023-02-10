@@ -11,7 +11,8 @@ export class PopupWithSubmit extends Popup {
     this._card = card;
   }
 
-  setupSubmitListener(handlerSubmit) {
-    this._button.addEventListener("click", () => handlerSubmit(this._card));
+  setEventListeners() {
+    this._button.addEventListener("click", () => this._handleFormSubmit(this._card));
+    super.setEventListeners();
   }
 }
