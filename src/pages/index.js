@@ -56,12 +56,12 @@ const section = new Section(
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
-    user.setUserInfo(
-      userData.name,
-      userData.about,
-      userData.avatar,
-      userData._id
-    );
+    user.setUserInfo({
+      name: userData.name,
+      about: userData.about,
+      avatar: userData.avatar,
+      id: userData._id,
+    });
     section.renderItems(cards.reverse());
   })
   .catch((err) => {
@@ -82,10 +82,10 @@ popupForDelete.setEventListeners();
 
 function handleDeleteSubmit(card) {
   api
-    .deleteCard(card._id)
+    .deleteCard(card.id)
     .then(() => {
       popupForDelete.close();
-      card._delete();
+      card.delete();
     })
     .catch((err) => console.log(err));
 }
@@ -93,6 +93,26 @@ function handleDeleteSubmit(card) {
 function handleDelete(card) {
   popupForDelete.open();
   popupForDelete.setupCard(card);
+}
+
+function handleLike(card) {
+  if (card._likeButton.classList.contains("elements__icon_active")) {
+    api
+      .deleteLike(card.id)
+      .then((data) => {
+        card._setLikesCount(data.likes.length);
+        card._likeButton.classList.toggle("elements__icon_active");
+      })
+      .catch((err) => console.log(err));
+  } else {
+    api
+      .setLike(card.id)
+      .then((data) => {
+        card._setLikesCount(data.likes.length);
+        this._likeButton.classList.toggle("elements__icon_active");
+      })
+      .catch((err) => console.log(err));
+  }
 }
 
 function createCard(cardData) {
@@ -103,8 +123,7 @@ function createCard(cardData) {
     handleDelete,
     user._id,
     popupForDelete,
-    api.deleteLike.bind(api),
-    api.setLike.bind(api)
+    handleLike
   );
   return card.render();
 }
@@ -120,7 +139,7 @@ profileValidator.enableValidation();
 
 function addCard(evt, inputValues) {
   evt.preventDefault();
-  cardSubmit.textContent = loadingString;
+  popupCard.renderLoading(true);
   api
     .addCard(inputValues.imgName, inputValues.imgSrc)
     .then((res) => {
@@ -131,24 +150,24 @@ function addCard(evt, inputValues) {
       console.log(err);
     })
     .finally(() => {
-      cardSubmit.textContent = saveString;
+      popupCard.renderLoading(false);
     });
 }
 
 function handleProfileFormSubmit(evt, inputValues) {
   evt.preventDefault();
-  profileSubmit.textContent = loadingString;
+  popupProfile.renderLoading(true);
   api
     .changeUserInfo(inputValues.profileName, inputValues.profileBio)
     .then((data) => {
-      user.setUserInfo(data.name, data.about);
+      user.setUserInfo({ name: data.name, about: data.about });
       this.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      profileSubmit.textContent = saveString;
+      popupProfile.renderLoading(false);
     });
 }
 
@@ -173,10 +192,8 @@ editButton.addEventListener("click", () => {
     profileBio: bio,
   });
   popupProfile.open();
-  console.log('disable')
   profileValidator.clearValidationErrors();
   profileValidator.disableSaveButton();
-  
 });
 
 const popupImage = new PopupWithImage(imagePopupSelector);
@@ -189,25 +206,28 @@ const popupAvatarValidator = new FormValidator(config, avatarForm);
 popupAvatarValidator.enableValidation();
 avatarButton.addEventListener("click", () => {
   popupAvatar.open();
-  console.log('disable')
   popupAvatarValidator.disableSaveButton();
   popupAvatarValidator.clearValidationErrors();
-  
 });
 
 function handleAvatarSubmit(evt, inputValues) {
   evt.preventDefault();
-  avatarSubmit.textContent = loadingString;
+  popupAvatar.renderLoading(true);
   api
     .changeAvatar(inputValues.imgSrc)
     .then((data) => {
-      user.setUserInfo(data.name, data.about, data.avatar, data._id);
+      user.setUserInfo({
+        name: data.name,
+        about: data.about,
+        avatar: data.avatar,
+        id: data._id,
+      });
       this.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      avatarSubmit.textContent = saveString;
+      popupAvatar.renderLoading(false);
     });
 }

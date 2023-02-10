@@ -9,9 +9,9 @@ export default class UserInfo {
     this._avatarSelector = document.querySelector(avatarSelector);
   }
 
-  setUserInfo(name, bio, avatar, id) {
+  setUserInfo({name, about, avatar, id}) {
     this._profileName.textContent = name;
-    this._profileBio.textContent = bio;
+    this._profileBio.textContent = about;
     if (avatar != undefined) {
       this._avatarSelector.src = avatar;
     }
