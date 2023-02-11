@@ -37,7 +37,7 @@ export default class Card {
     });
   }
 
-  _setLikesCount(likesCount) {
+  setLikesCount(likesCount) {
     this.likesNumber.textContent = likesCount;
   }
 
@@ -55,6 +55,11 @@ export default class Card {
     );
   }
 
+  toggleLike() {
+    this._likeButton.classList.toggle("elements__icon_active");
+    this.isLiked = !this.isLiked;
+  }
+
   render() {
     const imageElement = this._cardTemplate.querySelector(
       ".elements__card-photo"
@@ -64,7 +69,7 @@ export default class Card {
     imageElement.src = this._cardData.link;
     imageElement.alt = this._cardData.name;
     titleElement.textContent = this._cardData.name;
-    this._setLikesCount(this._likes);
+    this.setLikesCount(this._likes);
     if (!this._isDeletable) {
       this._deleteButton.style.display = "none";
     }

@@ -9,13 +9,13 @@ export default class UserInfo {
     this._avatarSelector = document.querySelector(avatarSelector);
   }
 
-  setUserInfo({name, about, avatar, id}) {
+  setUserInfo({ name, about, avatar, _id }) {
     this._profileName.textContent = name;
     this._profileBio.textContent = about;
     if (avatar != undefined) {
       this._avatarSelector.src = avatar;
     }
-    this._id = id;
+    this._id = _id;
   }
 
   getUserInfo() {
