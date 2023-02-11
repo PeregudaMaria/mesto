@@ -56,12 +56,7 @@ const section = new Section(
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
-    user.setUserInfo({
-      name: userData.name,
-      about: userData.about,
-      avatar: userData.avatar,
-      id: userData._id,
-    });
+    user.setUserInfo(userData);
     section.renderItems(cards.reverse());
   })
   .catch((err) => {
@@ -96,20 +91,20 @@ function handleDelete(card) {
 }
 
 function handleLike(card) {
-  if (card._likeButton.classList.contains("elements__icon_active")) {
+  if (card.isLiked) {
     api
       .deleteLike(card.id)
       .then((data) => {
-        card._setLikesCount(data.likes.length);
-        card._likeButton.classList.toggle("elements__icon_active");
+        card.setLikesCount(data.likes.length);
+        card.toggleLike();
       })
       .catch((err) => console.log(err));
   } else {
     api
       .setLike(card.id)
       .then((data) => {
-        card._setLikesCount(data.likes.length);
-        this._likeButton.classList.toggle("elements__icon_active");
+        card.setLikesCount(data.likes.length);
+        card.toggleLike();
       })
       .catch((err) => console.log(err));
   }
@@ -144,7 +139,7 @@ function addCard(evt, inputValues) {
     .addCard(inputValues.imgName, inputValues.imgSrc)
     .then((res) => {
       section.addItem(createCard(res));
-      this.close();
+      popupCard.close();
     })
     .catch((err) => {
       console.log(err);
@@ -160,8 +155,8 @@ function handleProfileFormSubmit(evt, inputValues) {
   api
     .changeUserInfo(inputValues.profileName, inputValues.profileBio)
     .then((data) => {
-      user.setUserInfo({ name: data.name, about: data.about });
-      this.close();
+      user.setUserInfo(data);
+      popupProfile.close();
     })
     .catch((err) => {
       console.log(err);
@@ -216,13 +211,8 @@ function handleAvatarSubmit(evt, inputValues) {
   api
     .changeAvatar(inputValues.imgSrc)
     .then((data) => {
-      user.setUserInfo({
-        name: data.name,
-        about: data.about,
-        avatar: data.avatar,
-        id: data._id,
-      });
-      this.close();
+      user.setUserInfo(data);
+      popupAvatar.close();
     })
     .catch((err) => {
       console.log(err);
